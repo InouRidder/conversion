@@ -7,15 +7,15 @@ module Converters
   def convert_to(attributes)
     raise UnkownConversionFormatError unless included_conversion? attributes[:conversion]
 
-    send("convert_to_#{attributes[:conversion]}!", attributes[:file_path])
+    send("convert_to_#{attributes[:conversion]}!", attributes)
   end
 
   private
 
-  def convert_to_csv(file_path)
+  def convert_to_csv(attributes)
     Converter.new(self).convert(
       to: :csv,
-      file_path: file_path
+      file_path: attributes[:file_path]
     )
   end
 
