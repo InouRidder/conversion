@@ -1,20 +1,28 @@
 # frozen_string_literal: true
 
-class Converter
-  attr_reader :collection
+class ArrayToCSVConverter
+  attr_reader :array
   attr_accessor :converted
-  def initialize(collection)
+
+  def initialize(attributes)
     @converted = []
-    @collection = collection
+    @array = attributes[:array]
   end
 
-  def convert(options)
+  def convert
+    set_headers
+    array.each do |hash|
 
+    end
   end
 
   private
 
-  def write_to_file(file_path)
+  def set_headers
+    array.first.fetch_keys
+  end
+
+  def write_to_file(options)
     file_path = generate_file_path(options[:file_path])
     File.open(filepath, 'wb') do |file|
       file.write(converted)

@@ -13,10 +13,10 @@ module Converters
   private
 
   def convert_to_csv(attributes)
-    Converter.new(self).convert(
-      to: :csv,
+    ArrayToCSVConverter.new(
+      array: self,
       file_path: attributes[:file_path]
-    )
+    ).convert
   end
 
   def included_conversion?(conversion)
