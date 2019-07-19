@@ -9,10 +9,10 @@ class Hash
 
     def extract_keys(hash = nil, prefix = '')
       hash ||= self.hash
-
+      p hash
       hash.each do |key, value|
         if value.is_a? Hash
-          fetch_keys(value, "#{key}.")
+          extract_keys(value, "#{prefix}#{key}.")
         else
           keys << "#{prefix}#{key}"
         end

@@ -1,16 +1,17 @@
 # frozen_string_literal: true
 
 require 'json'
+require 'pry'
 require_relative '../lib/hash'
 
 RSpec.describe Hash do
   describe 'Hash#extract_keys' do
-    let(:data) { JSON.generate(File.join(__dir__, 'examples/users.json')) }
+    let(:data) { JSON.parse(File.open(File.join(__dir__, 'examples/users.json')).read) }
 
     it 'should return the headers of a simple hash' do
       simple_hash = {
-        level: '1',
-        live: 'mentor'
+        'level' => '1',
+        'live' => 'mentor'
       }
 
       expect(simple_hash.extract_keys).to eq(simple_hash.keys)
