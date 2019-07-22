@@ -15,13 +15,13 @@ RSpec.describe Conversion do
   describe 'Conversion#new' do
     it 'should throw an error when given unknown conversion types' do
       expect { Conversion.new(to: :live_mentor, from: :inou) }.to(
-        raise_error(Conversion::UnkownConversionFormatError)
+        raise_error(UnkownConversionError)
       )
     end
 
     it ' should throw an error when passed unexisting files' do
-      expect { Conversion.new(input: 'random_file0', ouput: 'random_file1') }.to(
-        raise_error(Conversion::UnkownIOPathError)
+      expect { Conversion.new(from: :json, to: :csv, input: 'random_file0', ouput: 'random_file1') }.to(
+        raise_error(UnkownIOPathError)
       )
     end
 

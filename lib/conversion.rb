@@ -9,13 +9,20 @@ require_relative 'parsers/json_parser'
 
 require 'pry'
 
+class UnkownConversionError < StandardError; end
+class UnkownIOPathError < StandardError; end
+
 class Conversion
   attr_accessor :input
   attr_reader :from, :to, :output
-  class UnkownConversionFormatError < StandardError; end
-  class UnkownIOPathError < StandardError; end
 
-  CONVERSIONS = %w[json csv].freeze
+  def self.load_converters
+    Dir.entries(File.join(__dir__, 'converters')).select do |path|
+      path.match?(/_to_/)
+    end
+  end
+
+  CONVERSIONS = load_converters.freeze
 
   def initialize(attributes)
     @from, @to = attributes[:from], attributes[:to]
@@ -40,13 +47,11 @@ class Conversion
 
   def validate_files
     raise UnkownIOPathError unless [input, output].all? do |path|
-      File.exist? path
+      File.exist?(path)
     end
   end
 
   def validate_conversions
-    raise UnkownConversionFormatError if [to, from].any? do |conversion|
-      CONVERSIONS.include?(conversion)
-    end
+    raise UnkownConversionError unless CONVERSIONS.include?("#{from}_to_#{to}_converter.rb")
   end
 end
