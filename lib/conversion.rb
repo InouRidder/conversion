@@ -7,6 +7,8 @@ require_relative 'extensions/hash'
 require_relative 'converters/json_to_csv_converter'
 require_relative 'parsers/json_parser'
 
+require 'pry'
+
 class Conversion
   attr_accessor :input
   attr_reader :from, :to, :output
@@ -17,10 +19,10 @@ class Conversion
 
   def initialize(attributes)
     @from, @to = attributes[:from], attributes[:to]
-    check_for_conversions
+    validate_conversions
 
     @input, @output = attributes[:input], attributes[:output]
-    check_for_files
+    validate_files
   end
 
   def convert
@@ -36,19 +38,15 @@ class Conversion
     @parsed_input ||= "#{from.upcase}Parser".constantize.parse(File.open(input).read)
   end
 
-  def check_for_files
+  def validate_files
     raise UnkownIOPathError unless [input, output].all? do |path|
       File.exist? path
     end
   end
 
-  def check_for_conversions
-    raise UnkownConversionFormatError unless [to, from].all? do |conversion|
-      included_conversion?(conversion)
+  def validate_conversions
+    raise UnkownConversionFormatError if [to, from].any? do |conversion|
+      CONVERSIONS.include?(conversion)
     end
-  end
-
-  def included_conversion?(conversion)
-    !CONVERSIONS.include? conversion
   end
 end
