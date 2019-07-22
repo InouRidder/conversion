@@ -56,12 +56,7 @@ RSpec.describe Conversion do
         to: :csv
       ).convert
 
-      result = FileUtils.compare_file(
-        File.open(example_csv_file),
-        File.open(tmp_csv_file)
-      )
-
-      expect(result).to be(true)
+      expect(identical_files?(example_csv_file, tmp_csv_file)).to be_truthy
     end
   end
 end

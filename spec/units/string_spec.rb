@@ -11,7 +11,7 @@ RSpec.describe String do
     end
 
     it 'should return nil if passed an empty string' do
-      expect(''.constantize).to eq(nil)
+      expect(''.constantize).to be_nil
     end
   end
 end

@@ -11,4 +11,11 @@ module FileHelpers
     # Always reason from main spec directory
     File.join(__dir__, "../#{path}")
   end
+
+  def identical_files?(file, other_file)
+    FileUtils.compare_file(
+      File.open(file),
+      File.open(other_file)
+    )
+  end
 end

@@ -1,12 +1,13 @@
 # frozen_string_literal: true
 
 class JSONToCSVConverter
-  attr_reader :objects, :output_file_path
-  attr_accessor :converted
+  attr_reader :output_file_path
+  attr_accessor :converted, :objects
 
   def initialize(attributes)
     @converted = []
     @objects = attributes[:objects]
+    normalise_objects
     @output_file_path = attributes[:output_file_path]
   end
 
@@ -33,5 +34,9 @@ class JSONToCSVConverter
       csv << headers
       converted.each { |convert| csv << convert }
     end
+  end
+
+  def normalise_objects
+    self.objects = [objects] unless objects.is_a?(Array)
   end
 end
