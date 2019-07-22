@@ -15,9 +15,10 @@ class Conversion
   attr_reader :from, :to, :output
 
   def self.load_converters
-    Dir.entries(File.join(__dir__, 'converters')).select do |path|
+    entries = Dir.entries(File.join(__dir__, 'converters')).select do |path|
       path.match?(/_to_/)
-    end.map { |path| path.chomp('_converter.rb') }
+    end
+    entries.map { |path| path.chomp('_converter.rb') }
   end
 
   CONVERSIONS = load_converters.freeze
@@ -40,7 +41,9 @@ class Conversion
   private
 
   def parsed_input
-    @parsed_input ||= "#{from.upcase}Parser".constantize.parse(File.open(input).read)
+    @parsed_input ||= "#{from.upcase}Parser".constantize.parse(
+      File.open(input).read
+    )
   end
 
   def validate_files
