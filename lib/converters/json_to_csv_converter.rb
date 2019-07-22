@@ -24,8 +24,8 @@ class JSONToCSVConverter
   end
 
   def write_to_file
-    # I would have added: { force_quotes: true, quote_char: '"' } as options,
-    # but I wanted to exactly match the provided example for the sake of the test
+    # I would add: { force_quotes: true, quote_char: '"' } as options,
+    # but I want to exactly match the provided example for this test
 
     csv_options = { col_sep: ',' }
 

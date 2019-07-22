@@ -6,4 +6,9 @@ module FileHelpers
       File.truncate(file_path, 0)
     end
   end
+
+  def safe_path(path)
+    # Always reason from main spec directory
+    File.join(__dir__, "../#{path}")
+  end
 end

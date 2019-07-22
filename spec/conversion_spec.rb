@@ -8,9 +8,9 @@ require 'pry'
 
 RSpec.describe Conversion do
   include FileHelpers
-  let(:example_json_file) { File.join(__dir__, 'examples/users.json') }
-  let(:example_csv_file) { File.join(__dir__, 'examples/users.csv') }
-  let(:tmp_csv_file) { File.join(__dir__, 'tmp/users.csv') }
+  let(:example_json_file) { safe_path('examples/users.json') }
+  let(:example_csv_file) { safe_path('examples/users.csv') }
+  let(:tmp_csv_file) { safe_path('tmp/users.csv') }
 
   describe 'Conversion#new' do
     it 'should throw an error when given unknown conversion types' do
@@ -20,7 +20,14 @@ RSpec.describe Conversion do
     end
 
     it ' should throw an error when passed unexisting files' do
-      expect { Conversion.new(from: :json, to: :csv, input: 'random_file0', ouput: 'random_file1') }.to(
+      expect do
+        Conversion.new(
+          from: :json,
+          to: :csv,
+          input: 'random_file0',
+          ouput: 'random_file1'
+        )
+      end.to(
         raise_error(UnkownIOPathError)
       )
     end
