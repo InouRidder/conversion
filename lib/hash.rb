@@ -10,7 +10,7 @@ class Hash
     end
 
     def extract_keys(hash = nil, prefix = '')
-      hash.each do |key, value|
+      hash.each do |key, value| # Thinking about creating a 'traversable' duck type for any map like object that can recursively traversed
         if value.is_a? Hash
           extract_keys(value, "#{prefix}#{key}.")
         else

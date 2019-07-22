@@ -20,6 +20,14 @@ RSpec.describe Converters do
     end
 
     it 'should convert json objects to csv rows where the keys are headers' do
+
+      Conversion.new(
+        input: example_json_file,
+        from: :json,
+        to: :csv,
+        output: tmp_csv_file
+      ).convert
+
       JSON.parse(File.open(example_json_file).read).convert_to(
         conversion: :csv,
         file_path: tmp_csv_file
