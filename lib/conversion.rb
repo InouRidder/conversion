@@ -1,8 +1,10 @@
 # frozen_string_literal: true
 
+require_relative 'string'
 require_relative 'hash'
+
 # TODO: When multiple files per directory listed below, use mechanism to require_all
-require_relative 'file_converters/array_to_csv_converter'
+require_relative 'file_converters/json_to_csv_converter'
 require_relative 'file_parsers/json_parser'
 
 class Conversion
@@ -17,21 +19,19 @@ class Conversion
 
     @from, @to = attributes[:from], attributes[:to]
     check_for_conversions
-
-    parse_input
   end
 
   def convert
-    "#{from}To#{to}Converter".constantize.new(
-      objects: input,
-      file_path: attributes[:file_path]
+    "#{from.upcase}To#{to.upcase}Converter".constantize.new(
+      objects: parsed_input,
+      file_path: output
     ).convert
   end
 
   private
 
-  def parse_input
-    self.input = "#{from.upcase}Parser".constantize.parse(input)
+  def parsed_input
+    @parsed_input ||= "#{from.upcase}Parser".constantize.parse(File.open(input).read)
   end
 
   def check_for_files

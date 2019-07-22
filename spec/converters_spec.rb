@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
-require_relative '../lib/converters'
+require_relative '../lib/conversion'
 require_relative 'support/file_helpers'
 require 'csv'
 require 'tempfile'
 require 'json'
 require 'pry'
 
-RSpec.describe Converters do
+RSpec.describe Conversion do
   include FileHelpers
 
   describe 'Converters#convert_to' do
@@ -28,10 +28,10 @@ RSpec.describe Converters do
         output: tmp_csv_file
       ).convert
 
-      JSON.parse(File.open(example_json_file).read).convert_to(
-        conversion: :csv,
-        file_path: tmp_csv_file
-      )
+      # JSON.parse(File.open(example_json_file).read).convert_to(
+      #   conversion: :csv,
+      #   file_path: tmp_csv_file
+      # )
 
       result = FileUtils.compare_file(
         File.open(example_csv_file),
