@@ -10,7 +10,10 @@ require 'pry'
 RSpec.describe Conversion do
   include FileHelpers
 
-  describe 'Converters#convert_to' do
+  describe 'Conversion#new' do
+  end
+
+  describe 'Conversion#convert' do
     let(:example_json_file) { File.join(__dir__, 'examples/users.json') }
     let(:example_csv_file) { File.join(__dir__, 'examples/users.csv') }
     let(:tmp_csv_file) { File.join(__dir__, 'tmp/users.csv') }

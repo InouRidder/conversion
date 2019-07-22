@@ -2,7 +2,7 @@
 
 require 'json'
 require 'pry'
-require_relative '../lib/hash'
+require_relative '../lib/extensions/hash'
 
 RSpec.describe Hash do
   let(:data) { JSON.parse(File.open(File.join(__dir__, 'examples/users.json')).read) }

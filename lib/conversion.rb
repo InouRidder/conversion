@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-require_relative 'string'
-require_relative 'hash'
+require_relative 'extensions/string'
+require_relative 'extensions/hash'
 
 # TODO: When multiple files per directory listed below, use mechanism to require_all
 require_relative 'file_converters/json_to_csv_converter'
