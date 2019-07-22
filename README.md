@@ -20,3 +20,14 @@ The conversion object executes checks on the requested conversion to see if the 
 
 In this folder the extension of existing classes is handled, some of them have methods added to assist the conversion, only add methods here specifically that can be reused outside of the conversion context. If they are truely conversion specific, the method belongs in a converter or converter assisting object.
 
+
+# Adding new conversions
+
+To add a new conversion, you need to create a new converter: The convention is: FromToTOConverter
+for instance: JSONToCSVConverter.
+
+The converter object a hash as an argument with the values needed for your conversion, the ruby objects supplied by the parser and the output file path.
+If a parser is not yet present for your data format, add the parser in the parser folder that follows the correct convention: DATAFORMATParser, e.g.: JSONParser
+
+ It should have a class method 'parse' which returns the ruby objects needed for the conversion.
+
