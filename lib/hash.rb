@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Hash
   class HashExtraction
     attr_accessor :keys, :values
@@ -33,16 +35,6 @@ class Hash
       value.is_a?(Array) ? value.join(',') : value.to_s
     end
   end
-
-  # def traverse
-  #   each do |key, value|
-  #     if value.is_a? Hash
-  #       traverse(self)
-  #     else
-  #       yield
-  #     end
-  #   end
-  # end
 
   def extract_values
     HashExtraction.new.extract_values(self)

@@ -1,38 +1,36 @@
 # frozen_string_literal: true
 
 require_relative '../lib/converters'
+require_relative 'support/file_helpers'
 require 'csv'
 require 'tempfile'
 require 'json'
+require 'pry'
 
 RSpec.describe Converters do
+  include FileHelpers
+
   describe 'Converters#convert_to' do
-    let(:json_file) { File.join(__dir__, 'examples/users.json') }
+    let(:example_json_file) { File.join(__dir__, 'examples/users.json') }
+    let(:example_csv_file) { File.join(__dir__, 'examples/users.csv') }
+    let(:tmp_csv_file) { File.join(__dir__, 'tmp/users.csv') }
+
+    before(:each) do
+      clean_tmp_files([tmp_csv_file])
+    end
 
     it 'should convert json objects to csv rows where the keys are headers' do
-      temp = Tempfile.new('csv').tap do |f|
-        f << JSON.generate(File.open(json_file).read)
-      end
+      JSON.parse(File.open(example_json_file).read).convert_to(
+        conversion: :csv,
+        file_path: tmp_csv_file
+      )
 
       result = FileUtils.compare_file(
-        File.open(File.join(__dir__, 'examples/users.csv')),
-        temp
+        File.open(example_csv_file),
+        File.open(tmp_csv_file)
       )
 
       expect(result).to be(true)
     end
-
-    # it 'should convert a csv to a collection of json objects' do
-    #   CSV.open('examples/users.csv') do |csv|
-    #     @temp_file = Tempfile.create { |f| f << csv.convert_to(:json) }
-    #   end
-
-    #   result = FileUtils.compare_file(
-    #     './examples/users.json',
-    #     @temp_file.path
-    #   )
-
-    #   expect(result).to be(true)
-    # end
   end
 end

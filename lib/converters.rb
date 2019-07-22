@@ -1,13 +1,15 @@
 # frozen_string_literal: true
+require_relative 'hash'
+require_relative 'file_converters/array_to_csv_converter'
 
 module Converters
   class UnkownConversionFormatError < StandardError; end
   CONVERSIONS = %w[json csv].freeze
 
   def convert_to(attributes)
-    raise UnkownConversionFormatError unless included_conversion? attributes[:conversion]
+    raise UnkownConversionFormatError unless included_conversion?(attributes[:conversion])
 
-    send("convert_to_#{attributes[:conversion]}!", attributes)
+    send("convert_to_#{attributes[:conversion]}", attributes)
   end
 
   private
@@ -24,4 +26,4 @@ module Converters
   end
 end
 
-Enumerable.prepend Converters
+Array.prepend Converters

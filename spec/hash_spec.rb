@@ -5,9 +5,9 @@ require 'pry'
 require_relative '../lib/hash'
 
 RSpec.describe Hash do
-  describe 'Hash#extract_keys' do
-    let(:data) { JSON.parse(File.open(File.join(__dir__, 'examples/users.json')).read) }
+  let(:data) { JSON.parse(File.open(File.join(__dir__, 'examples/users.json')).read) }
 
+  describe 'Hash#extract_keys' do
     it 'should return the keys of a simple hash' do
       simple_hash = {
         'level' => '1',
@@ -25,7 +25,6 @@ RSpec.describe Hash do
   end
 
   describe 'Hash#extract_values' do
-    let(:data) { JSON.parse(File.open(File.join(__dir__, 'examples/users.json')).read) }
     it 'should return the values of a simple hash' do
       simple_hash = {
         'level' => '1',
