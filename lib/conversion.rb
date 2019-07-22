@@ -35,7 +35,7 @@ class Conversion
   def convert
     "#{from.upcase}To#{to.upcase}Converter".constantize.new(
       objects: parsed_input,
-      file_path: output
+      output_file_path: output
     ).convert
   end
 

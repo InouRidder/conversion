@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
 class JSONToCSVConverter
-  attr_reader :objects, :file_path
+  attr_reader :objects, :output_file_path
   attr_accessor :converted
 
   def initialize(attributes)
     @converted = []
     @objects = attributes[:objects]
-    @file_path = attributes[:file_path]
+    @output_file_path = attributes[:output_file_path]
   end
 
   def convert
@@ -29,7 +29,7 @@ class JSONToCSVConverter
 
     csv_options = { col_sep: ',' }
 
-    CSV.open(file_path, 'wb', csv_options) do |csv|
+    CSV.open(output_file_path, 'wb', csv_options) do |csv|
       csv << headers
       converted.each { |convert| csv << convert }
     end
