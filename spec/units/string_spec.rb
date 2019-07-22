@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative '../lib/extensions/string'
+require_relative '../../lib/extensions/string'
 
 RSpec.describe String do
   describe 'String#constantize' do

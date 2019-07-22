@@ -4,8 +4,8 @@ require_relative 'extensions/string'
 require_relative 'extensions/hash'
 
 # TODO: When multiple files per directory listed below, use mechanism to require_all
-require_relative 'file_converters/json_to_csv_converter'
-require_relative 'file_parsers/json_parser'
+require_relative 'converters/json_to_csv_converter'
+require_relative 'parsers/json_parser'
 
 class Conversion
   attr_accessor :input

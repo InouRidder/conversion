@@ -11,6 +11,11 @@ RSpec.describe Conversion do
   include FileHelpers
 
   describe 'Conversion#new' do
+    it 'should throw an error when given unknown conversion types' do
+    end
+
+    it ' should throw an error when passed unexisting files' do
+    end
   end
 
   describe 'Conversion#convert' do
@@ -23,18 +28,12 @@ RSpec.describe Conversion do
     end
 
     it 'should convert json objects to csv rows where the keys are headers' do
-
       Conversion.new(
         input: example_json_file,
         from: :json,
         to: :csv,
         output: tmp_csv_file
       ).convert
-
-      # JSON.parse(File.open(example_json_file).read).convert_to(
-      #   conversion: :csv,
-      #   file_path: tmp_csv_file
-      # )
 
       result = FileUtils.compare_file(
         File.open(example_csv_file),

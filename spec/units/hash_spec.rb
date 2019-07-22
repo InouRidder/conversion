@@ -2,10 +2,10 @@
 
 require 'json'
 require 'pry'
-require_relative '../lib/extensions/hash'
+require_relative '../../lib/extensions/hash'
 
 RSpec.describe Hash do
-  let(:data) { JSON.parse(File.open(File.join(__dir__, 'examples/users.json')).read) }
+  let(:data) { JSON.parse(File.open(File.join(__dir__, '../examples/users.json')).read) }
 
   describe 'Hash#extract_keys' do
     it 'should return the keys of a simple hash' do
