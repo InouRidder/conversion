@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Hash
+module ConversionHashExtension
   class HashExtraction
     attr_accessor :keys, :values
 
@@ -44,3 +44,5 @@ class Hash
     HashExtraction.new.extract_keys(self)
   end
 end
+
+Hash.prepend ConversionHashExtension
