@@ -12,9 +12,18 @@ RSpec.describe Conversion do
 
   describe 'Conversion#new' do
     it 'should throw an error when given unknown conversion types' do
+      expect { Conversion.new(to: :live_mentor, from: :inou) }.to(
+        raise_error(Conversion::UnkownConversionFormatError)
+      )
     end
 
     it ' should throw an error when passed unexisting files' do
+      expect { Conversion.new({}) }.to(
+        raise_error(Conversion::UnkownConversionFormatError)
+      )
+    end
+
+    it 'should return an instance of Conversion when passed correct attributes' do
     end
   end
 
@@ -30,9 +39,9 @@ RSpec.describe Conversion do
     it 'should convert json objects to csv rows where the keys are headers' do
       Conversion.new(
         input: example_json_file,
+        output: tmp_csv_file,
         from: :json,
-        to: :csv,
-        output: tmp_csv_file
+        to: :csv
       ).convert
 
       result = FileUtils.compare_file(

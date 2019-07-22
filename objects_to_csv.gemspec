@@ -4,7 +4,7 @@ Gem::Specification.new do |s|
   s.date = '2011-09-29'
   s.summary = 'my_gem is an awesome gem'
   s.files = [
-    "lib/converters.rb"
+    'lib/converters.rb'
   ]
-  s.require_paths = ["lib"]
+  s.require_paths = ['lib']
 end

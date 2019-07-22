@@ -11,14 +11,16 @@ class Conversion
   attr_accessor :input
   attr_reader :from, :to, :output
   class UnkownConversionFormatError < StandardError; end
+  class UnkownIOPathError < StandardError; end
+
   CONVERSIONS = %w[json csv].freeze
 
   def initialize(attributes)
-    @input, @output = attributes[:input], attributes[:output]
-    check_for_files
-
     @from, @to = attributes[:from], attributes[:to]
     check_for_conversions
+
+    @input, @output = attributes[:input], attributes[:output]
+    check_for_files
   end
 
   def convert
@@ -35,7 +37,7 @@ class Conversion
   end
 
   def check_for_files
-    raise 'Enter valid file path' unless [input, output].all? do |path|
+    raise UnkownIOPathError unless [input, output].all? do |path|
       File.exist? path
     end
   end
