@@ -7,8 +7,6 @@ require_relative 'extensions/hash'
 require_relative 'converters/json_to_csv_converter'
 require_relative 'parsers/json_parser'
 
-require 'pry'
-
 class UnkownConversionError < StandardError; end
 class UnkownIOPathError < StandardError; end
 
@@ -19,7 +17,7 @@ class Conversion
   def self.load_converters
     Dir.entries(File.join(__dir__, 'converters')).select do |path|
       path.match?(/_to_/)
-    end
+    end.map { |path| path.chomp('_converter.rb') }
   end
 
   CONVERSIONS = load_converters.freeze
@@ -52,6 +50,6 @@ class Conversion
   end
 
   def validate_conversions
-    raise UnkownConversionError unless CONVERSIONS.include?("#{from}_to_#{to}_converter.rb")
+    raise UnkownConversionError unless CONVERSIONS.include?("#{from}_to_#{to}")
   end
 end
