@@ -21,7 +21,7 @@ class JSONToCSVConverter
   private
 
   def headers
-    objects.first.extract_keys
+    objects.first&.extract_keys || []
   end
 
   def write_to_file
