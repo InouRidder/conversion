@@ -12,8 +12,7 @@ The converter objects are the main object in charge of making the conversion and
 
 Parsers are a well known concept in CS, in this case I extracted parsing logic on a per data format basis, so that any additional logic per parsing format can be handled in seperate objects. The parsers must always return ruby objects back to the `conversion` instance. The responsibility is to go from a data format to that data format represented in ruby:
 e.g.
-JSON -> Hash/Array
-CSV -> two dimensional array
+JSON -> Hash/Array, CSV -> Array
 
 ## Conversion
 
