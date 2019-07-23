@@ -14,14 +14,14 @@ class Conversion
   attr_accessor :input
   attr_reader :from, :to, :output
 
-  def self.load_converters
+  def self.load_conversions
     entries = Dir.entries(File.join(__dir__, 'converters')).select do |path|
       path.match?(/_to_/)
     end
     entries.map { |path| path.chomp('_converter.rb') }
   end
 
-  CONVERSIONS = load_converters.freeze
+  CONVERSIONS = load_conversions.freeze
 
   def initialize(attributes)
     @from, @to = attributes[:from], attributes[:to]
