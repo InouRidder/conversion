@@ -9,7 +9,7 @@ module ConversionHashExtension
       @values = []
     end
 
-    def extract_keys(hash = nil, prefix = '')
+    def extract_keys(hash, prefix = '')
       # Thinking about creating a 'traversable' duck type for any map like object that can recursively traversed
       hash.each do |key, value|
         if value.is_a? Hash
@@ -21,7 +21,7 @@ module ConversionHashExtension
       keys
     end
 
-    def extract_values(hash = nil)
+    def extract_values(hash)
       hash.each do |_key, value|
         if value.is_a? Hash
           extract_values(value)
