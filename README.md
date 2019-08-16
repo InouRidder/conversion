@@ -1,4 +1,4 @@
-## Code challenge for Live Mentor
+## Code challenge 
 
 ### Create an extensible project that converts a json into a csv with nested headers
 
